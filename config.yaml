@@ -1,5 +1,4 @@
 mqtt:
-  host_ip: "192.168.93.81"
   port: 1883
   identifier: "C-0"
   topics:
