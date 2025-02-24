@@ -1,0 +1,18 @@
+mqtt:
+  host_ip: "192.168.93.81"
+  port: 1883
+  identifier: "C-0"
+  topics:
+    topic_sensor: "topic/sensor"
+  fieldnames:
+    - sensor_id
+    - hub_id
+    - temp
+    - humidity
+    - moisture
+    - year
+    - month
+    - day 
+    - hour
+    - minute 
+    - second 
