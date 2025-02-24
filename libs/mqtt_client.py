@@ -15,6 +15,7 @@ class MQTTHandler:
     def __init__(self):
         # Load sensitive credentials from .env
         if load_dotenv():
+            self.host_ip = os.getenv("HOST_IP")
             self.mqtt_username = os.getenv("MQTT_USERNAME")
             self.mqtt_password = os.getenv("MQTT_PASSWORD")
         else:
@@ -29,7 +30,6 @@ class MQTTHandler:
         
         # Load configuration settings from config.yaml 
         self.config: dict = self._load_config()
-        self.host_ip: str = self.config["mqtt"]["host_ip"]
         self.port: int = self.config["mqtt"]["port"]
         self.topic_sensor: str = self.config["mqtt"]["topics"]["topic_sensor"]
         self.identifier: str = self.config["mqtt"]["identifier"]
