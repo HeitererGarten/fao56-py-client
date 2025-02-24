@@ -15,9 +15,14 @@ class MQTTHandler:
     def __init__(self):
         # Load sensitive credentials from .env
         if load_dotenv():
-            self.host_ip = os.getenv("HOST_IP")
-            self.mqtt_username = os.getenv("MQTT_USERNAME")
-            self.mqtt_password = os.getenv("MQTT_PASSWORD")
+            self.host_ip: str = os.getenv("HOST_IP")
+            # getenv() returns str
+            try:
+                self.port: int = int(os.getenv("PORT"))
+            except (TypeError, ValueError) as e:
+                logging.error(f"Invalid PORT value: {e}")
+            self.mqtt_username: str = os.getenv("MQTT_USERNAME")
+            self.mqtt_password: str = os.getenv("MQTT_PASSWORD")
         else:
             msg: str = "Missing .env file"
             logging.error(msg)
@@ -26,11 +31,10 @@ class MQTTHandler:
         # Get parent directory of /libs
         # First .parent gets /libs 
         # Second .parent gets PC_MQTT_Client/
-        self.project_root = Path(__file__).parent.parent 
+        self.project_root: Path = Path(__file__).parent.parent 
         
         # Load configuration settings from config.yaml 
         self.config: dict = self._load_config()
-        self.port: int = self.config["mqtt"]["port"]
         self.topic_sensor: str = self.config["mqtt"]["topics"]["topic_sensor"]
         self.identifier: str = self.config["mqtt"]["identifier"]
         self.fieldnames: list = self.config["mqtt"]["fieldnames"]

@@ -1,5 +1,4 @@
 mqtt:
-  port: 1883
   identifier: "C-0"
   topics:
     topic_sensor: "topic/sensor"
